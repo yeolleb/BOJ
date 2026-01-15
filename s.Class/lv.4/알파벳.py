@@ -1,9 +1,9 @@
 # 1987
-# set -> 시간초과
-# 알파벳 = 26가지이므로 비트마스킹
+# pypy3✅, 사용금지❌: sys.setrecursionlimit(1000000)
+# set -> 시간초과, 알파벳 = 26가지이므로 비트마스킹
 import sys
-sys.setrecursionlimit(1000000)
 input = sys.stdin.readline
+
 r, c = map(int, input().split())
 ml = []
 for _ in range(r):
