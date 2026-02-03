@@ -1,6 +1,7 @@
 # 14500
+# https://jominseoo.tistory.com/96
 import sys
-from collections import deque
+sys.setrecursionlimit(1000000) # pypy3에서 메모리 초과 발생
 input = sys.stdin.readline
 n, m = map(int, input().split())
 myList = []
@@ -12,37 +13,41 @@ for _ in range(n):
 dx = [0, 1, 0, -1]
 dy = [1, 0, -1, 0]
 visited = [[False for _ in range(m)]for __ in range(n)]
-max_cell = max(map(max, myList))
 
-def dfs(x, y, depth, total):
+# mx: 가장 큰 값
+mx = -1
+for i in range(n):
+    for j in range(m):
+        mx = max(mx, myList[i][j])
+
+def dfs(t, cnt, lst):
     global ans
 
-    # 가지치기: 남은 칸을 전부 max로 더해도 ans 못 넘으면 컷
-    if total + (3 - depth) * max_cell <= ans:
+    # 가지치기
+    # 남은 칸 전부가 mx여도 ans 못 넘으면 더 볼 필요 없음
+    if t + (4-cnt)*mx <= ans:
         return
 
-    if depth == 3:
-        ans = max(ans, total)
+    if cnt == 4:
+        ans = max(ans, t)
         return
 
-    for k in range(4):
-        nx, ny = x + dx[k], y + dy[k]
-        if 0 <= nx < n and 0 <= ny < m and not visited[nx][ny]:
-
-            if depth == 1:
-                visited[nx][ny] = True
-                dfs(x, y, depth + 1, total + myList[nx][ny])
-                visited[nx][ny] = False
-
-            visited[nx][ny] = True
-            dfs(nx, ny, depth + 1, total + myList[nx][ny])
-            visited[nx][ny] = False
+    # 지금까지 선택한 모든 칸(lst)에 대해 확장
+    for lx,ly in lst:
+        for i in range(4):
+            x = lx + dx[i]
+            y = ly + dy[i]
+            if 0<=x<n and 0<=y<m:
+                if not visited[x][y]:
+                    visited[x][y] = True
+                    dfs(t+myList[x][y], cnt+1, lst+[(x, y)])
+                    visited[x][y] = False
 
 ans = 0
+
 for i in range(n):
     for j in range(m):
         visited[i][j] = True
-        dfs(i, j, 0, myList[i][j])
-        visited[i][j] = False
+        dfs(myList[i][j], 1, [(i, j)])
 
 print(ans)
