@@ -10,6 +10,7 @@ for _ in range(m):
     org_lst[s].append((e, w))
     rev_lst[e].append((s, w))
 
+# 다익스트라
 def dijkstra(s, lst):
     d = [sys.maxsize]*(n+1)
     hq = []
