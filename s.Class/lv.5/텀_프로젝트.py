@@ -1,4 +1,5 @@
 # 9466
+# 유사 문제: 스도쿠(2239), 숫자고르기(2668)
 # 또 재귀,,,, 재귀는 어려워...
 import sys
 input = sys.stdin.readline
