@@ -1,5 +1,7 @@
 # 28707
 # 리스트를 튜플로 전환하면 딕셔너리의 키로 전환할 수 있다 !!
+# 첨엔 m가지 수를 다 써봐야한다고 생각했다. 근데 최소 비용이니 BFS를 떠올렸다.
+# 이때 visited 처리를 어떻게 해야하는지 헤맸는데 list를 tuple로 전환하여 해결.
 import sys, heapq
 input = sys.stdin.readline
 
